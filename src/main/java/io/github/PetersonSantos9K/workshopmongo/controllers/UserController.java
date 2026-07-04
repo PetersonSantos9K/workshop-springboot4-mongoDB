@@ -1,11 +1,14 @@
 package io.github.PetersonSantos9K.workshopmongo.controllers;
 
-import io.github.PetersonSantos9K.workshopmongo.dto.UserDTO;
+import io.github.PetersonSantos9K.workshopmongo.dto.request.UserRequestDTO;
+import io.github.PetersonSantos9K.workshopmongo.dto.response.UserResponseDTO;
 import io.github.PetersonSantos9K.workshopmongo.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -16,13 +19,21 @@ public class UserController {
     private final UserService service;
 
     @GetMapping
-    public ResponseEntity<List<UserDTO>> findAll(){
+    public ResponseEntity<List<UserResponseDTO>> findAll(){
         return ResponseEntity.ok().body(service.findAll());
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> findById(@PathVariable String id){
+    public ResponseEntity<UserResponseDTO> findById(@PathVariable String id){
         return ResponseEntity.ok().body(service.findById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<UserResponseDTO> insert(@RequestBody UserRequestDTO dto){
+
+        UserResponseDTO responseDTO = service.insert(dto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(responseDTO.getId()).toUri();
+        return ResponseEntity.created(uri).body(responseDTO);
     }
 
 }
