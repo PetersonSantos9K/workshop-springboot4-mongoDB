@@ -1,6 +1,7 @@
 package io.github.PetersonSantos9K.workshopmongo.controllers;
 
 import io.github.PetersonSantos9K.workshopmongo.dto.request.UserRequestDTO;
+import io.github.PetersonSantos9K.workshopmongo.dto.request.UserUpdateRequestDTO;
 import io.github.PetersonSantos9K.workshopmongo.dto.response.UserResponseDTO;
 import io.github.PetersonSantos9K.workshopmongo.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +39,13 @@ public class UserController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id){
         service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Void> update(@PathVariable String id, @RequestBody UserUpdateRequestDTO dto){
+        dto.setId(id);
+        service.update(dto);
         return ResponseEntity.noContent().build();
     }
 

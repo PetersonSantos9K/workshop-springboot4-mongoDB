@@ -2,6 +2,7 @@ package io.github.PetersonSantos9K.workshopmongo.services;
 
 import io.github.PetersonSantos9K.workshopmongo.domain.User;
 import io.github.PetersonSantos9K.workshopmongo.dto.request.UserRequestDTO;
+import io.github.PetersonSantos9K.workshopmongo.dto.request.UserUpdateRequestDTO;
 import io.github.PetersonSantos9K.workshopmongo.dto.response.UserResponseDTO;
 import io.github.PetersonSantos9K.workshopmongo.repositories.UserRepository;
 import io.github.PetersonSantos9K.workshopmongo.services.exception.ObjectNotFoundException;
@@ -39,9 +40,24 @@ public class UserService {
         repo.deleteById(id);
     }
 
+    public UserResponseDTO update(UserUpdateRequestDTO obj){
+        User newObj = repo.findById(obj.getId()).orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+        updateData(newObj, obj);
+        repo.save(newObj);
+
+        return new UserResponseDTO(newObj);
+    }
+
     public User fromDTO (UserRequestDTO objDTO){
         return new User(null, objDTO.getName(), objDTO.getEmail());
     }
+
+    public void updateData(User user, UserUpdateRequestDTO requestDTO){
+        user.setEmail(requestDTO.getEmail());
+        user.setName(requestDTO.getName());
+    }
+
+
 
 
 }
