@@ -30,6 +30,14 @@ public class UserService {
         return new UserResponseDTO(repo.save(fromDTO(user)));
     }
 
+    public void delete(String id){
+
+        if(!repo.existsById(id)){
+            throw new ObjectNotFoundException("Objeto não encontrado");
+        }
+
+        repo.deleteById(id);
+    }
 
     public User fromDTO (UserRequestDTO objDTO){
         return new User(null, objDTO.getName(), objDTO.getEmail());

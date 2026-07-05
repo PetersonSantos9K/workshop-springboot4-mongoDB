@@ -30,10 +30,15 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserResponseDTO> insert(@RequestBody UserRequestDTO dto){
-
         UserResponseDTO responseDTO = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(responseDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(responseDTO);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
