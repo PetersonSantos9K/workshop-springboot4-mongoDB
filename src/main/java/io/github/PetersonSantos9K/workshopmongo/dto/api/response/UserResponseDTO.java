@@ -1,4 +1,4 @@
-package io.github.PetersonSantos9K.workshopmongo.dto.request;
+package io.github.PetersonSantos9K.workshopmongo.dto.api.response;
 
 import io.github.PetersonSantos9K.workshopmongo.domain.User;
 import lombok.Getter;
@@ -9,19 +9,22 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class UserRequestDTO implements Serializable {
+public class UserResponseDTO implements Serializable{
 
     @Serial
     private static final long serialVersionUID = 1L;
 
+    private String id;
     private String name;
     private String email;
 
-    public UserRequestDTO(){}
+    public UserResponseDTO(){}
 
-    public UserRequestDTO(User obj) {
+    public UserResponseDTO(User obj) {
+        id = obj.getId();
         name = obj.getName();
         email = obj.getEmail();
     }
 
 }
+

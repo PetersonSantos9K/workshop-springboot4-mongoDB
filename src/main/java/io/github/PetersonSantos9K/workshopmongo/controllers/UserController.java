@@ -1,8 +1,8 @@
 package io.github.PetersonSantos9K.workshopmongo.controllers;
 
-import io.github.PetersonSantos9K.workshopmongo.dto.request.UserRequestDTO;
-import io.github.PetersonSantos9K.workshopmongo.dto.request.UserUpdateRequestDTO;
-import io.github.PetersonSantos9K.workshopmongo.dto.response.UserResponseDTO;
+import io.github.PetersonSantos9K.workshopmongo.dto.api.request.UserRequestDTO;
+import io.github.PetersonSantos9K.workshopmongo.dto.api.request.UserUpdateRequestDTO;
+import io.github.PetersonSantos9K.workshopmongo.dto.api.response.UserResponseDTO;
 import io.github.PetersonSantos9K.workshopmongo.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
