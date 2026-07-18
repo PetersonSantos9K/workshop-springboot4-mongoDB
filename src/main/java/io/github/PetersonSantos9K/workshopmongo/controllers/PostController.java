@@ -1,13 +1,11 @@
 package io.github.PetersonSantos9K.workshopmongo.controllers;
 
+import io.github.PetersonSantos9K.workshopmongo.controllers.util.URL;
 import io.github.PetersonSantos9K.workshopmongo.domain.Post;
 import io.github.PetersonSantos9K.workshopmongo.services.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,11 +23,16 @@ public class PostController {
         return ResponseEntity.ok().body(postService.findAll());
     }
 
-
     @GetMapping(value = "/{id}")
     public ResponseEntity<Post> findById(@PathVariable String id){
-
         return ResponseEntity.ok().body(postService.findById(id));
     }
 
+    @GetMapping(value = "/titlesearch")
+    public ResponseEntity<List<Post>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text){
+
+        text = URL.decodeParam(text);
+        List<Post> list = postService.findByTitle(text);
+        return ResponseEntity.ok().body(list);
+    }
 }
