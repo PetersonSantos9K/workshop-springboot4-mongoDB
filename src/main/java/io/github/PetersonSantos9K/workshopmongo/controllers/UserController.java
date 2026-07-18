@@ -1,5 +1,6 @@
 package io.github.PetersonSantos9K.workshopmongo.controllers;
 
+import io.github.PetersonSantos9K.workshopmongo.domain.Post;
 import io.github.PetersonSantos9K.workshopmongo.dto.api.request.UserRequestDTO;
 import io.github.PetersonSantos9K.workshopmongo.dto.api.request.UserUpdateRequestDTO;
 import io.github.PetersonSantos9K.workshopmongo.dto.api.response.UserResponseDTO;
@@ -47,6 +48,11 @@ public class UserController {
         dto.setId(id);
         service.update(dto);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        return ResponseEntity.ok().body(service.findPosts(id));
     }
 
 }

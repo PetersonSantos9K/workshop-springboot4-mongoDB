@@ -1,5 +1,7 @@
 package io.github.PetersonSantos9K.workshopmongo.dto.api.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.github.PetersonSantos9K.workshopmongo.domain.Post;
 import io.github.PetersonSantos9K.workshopmongo.domain.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +19,6 @@ public class UserResponseDTO implements Serializable{
     private String id;
     private String name;
     private String email;
-
     public UserResponseDTO(){}
 
     public UserResponseDTO(User obj) {
@@ -25,6 +26,7 @@ public class UserResponseDTO implements Serializable{
         name = obj.getName();
         email = obj.getEmail();
     }
+
 
 }
 
