@@ -7,6 +7,7 @@ import io.github.PetersonSantos9K.workshopmongo.services.exception.ObjectNotFoun
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -25,6 +26,11 @@ public class PostService {
     }
 
     public List<Post> findByTitle(String title){
-        return repository.findByTitleContainingIgnoreCase(title);
+        return repository.findByTitle(title);
+    }
+
+    public List<Post> fullSearch(String text, Date minDate, Date maxDate){
+        maxDate = new Date(maxDate.getTime() + 24 * 60 * 60 * 1000);
+        return repository.fullSearch(text, minDate, maxDate);
     }
 }
